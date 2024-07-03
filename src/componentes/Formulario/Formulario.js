@@ -1,3 +1,4 @@
+import { useState } from "react"
 import "./Formulario.css"
 import CampoTexto from "../CampoTexto"
 import ListaOpciones from "../ListaOpciones"
@@ -6,19 +7,52 @@ import Boton from "../Boton"
 
 const Formulario = () => {
 
+    const [nombre,actualizarNombre] = useState("")
+    const [puesto,actualizarPuesto] = useState("")
+    const [foto,actualizarFoto] = useState("")
+    const [equipo,actualizarEquipo] = useState("")
+
     const manejarEnvio = (e) => { 
         e.preventDefault()
-        console.log("Manejar el envio", e)
+        console.log("Manejar el envio")
+        let datosAEnviar = {
+            nombre,
+            puesto,
+            foto,
+            equipo
+        }
+        console.log(datosAEnviar)
     }
 
     return <section className="formulario">
         <form onSubmit={manejarEnvio}>
             <h2>Rellena el formulario para crear el colaborador.</h2>
-            <CampoTexto titulo="Nombre" placeholder="Ingresa el nombre" required={true} />
-            <CampoTexto titulo="Puesto" placeholder="Ingresa el puesto" required /> 
-            {/* Ambas maneras de escribir el "required son adecuadas" */}
-            <CampoTexto titulo="Foto" placeholder="Ingresa la foto" required />
-            <ListaOpciones />
+            <CampoTexto 
+                titulo="Nombre" 
+                placeholder="Ingresa el nombre" 
+                required={true} 
+                valor={nombre} 
+                actualizarValor={actualizarNombre} 
+            />                                             {/* Ambas maneras de escribir el "required son adecuadas" */}
+            <CampoTexto 
+                titulo="Puesto" 
+                placeholder="Ingresa el puesto" 
+                required
+                valor={puesto} 
+                actualizarValor={actualizarPuesto}
+            /> 
+            
+            <CampoTexto 
+                titulo="Foto" 
+                placeholder="Ingresa la foto" 
+                required
+                valor={foto} 
+                actualizarValor={actualizarFoto}
+            />
+            <ListaOpciones 
+                valor={equipo} 
+                actualizarEquipo={actualizarEquipo}
+            />
             <Boton>
                 Crear
             </Boton>
