@@ -7,16 +7,17 @@ import Boton from "../Boton"
 const Formulario = () => {
 
     const manejarEnvio = (e) => { 
-        evento.preventDefault()
+        e.preventDefault()
         console.log("Manejar el envio", e)
     }
 
     return <section className="formulario">
         <form onSubmit={manejarEnvio}>
             <h2>Rellena el formulario para crear el colaborador.</h2>
-            <CampoTexto titulo="Nombre" placeholder="Ingresa el nombre" />
-            <CampoTexto titulo="Puesto" placeholder="Ingresa el puesto" />
-            <CampoTexto titulo="Foto" placeholder="Ingresa la foto" />
+            <CampoTexto titulo="Nombre" placeholder="Ingresa el nombre" required={true} />
+            <CampoTexto titulo="Puesto" placeholder="Ingresa el puesto" required /> 
+            {/* Ambas maneras de escribir el "required son adecuadas" */}
+            <CampoTexto titulo="Foto" placeholder="Ingresa la foto" required />
             <ListaOpciones />
             <Boton>
                 Crear
