@@ -4,10 +4,41 @@ import Header from './componentes/Header/Header';
 import Formulario from './componentes/Formulario/Formulario';
 import MiOrg from './componentes/MiOrg';
 import Equipo from './componentes/Equipo';
+import Footer from './componentes/Footer';
 
 function App() {
 
   const [mostrarFormulario, actualizarMostrar] = useState(false)
+  const [colaboradores, actualizarColaboradores] = useState([{
+    equipo: "Front End",
+    foto: "https://github.com/harlandlohora.png",
+    nombre: "Harland Lohora",
+    puesto: "Instructor"
+  },
+  {
+    equipo: "Programación",
+    foto: "https://github.com/genesysaluralatam.png",
+    nombre: "Genesys Rondón",
+    puesto: "Desarrolladora de software e instructora"
+  },
+  {
+    equipo: "UX y Diseño",
+    foto: "https://github.com/JeanmarieAluraLatam.png",
+    nombre: "Jeanmarie Quijada",
+    puesto: "Instructora en Alura Latam"
+  },
+  {
+    equipo: "Programación",
+    foto: "https://github.com/christianpva.png",
+    nombre: "Christian Velasco",
+    puesto: "Head de Alura e Instructor"
+  },
+  {
+    equipo: "Innovación y Gestión",
+    foto: "https://github.com/JoseDarioGonzalezCha.png",
+    nombre: "Jose Gonzalez",
+    puesto: "Dev FullStack"
+  }])
 
   //Ternario --> condicion ? seMuestra : noSemuestra
   //condicion && seMuestra
@@ -15,6 +46,14 @@ function App() {
   const cambiarMostrar = () => {
     actualizarMostrar(!mostrarFormulario)
 
+  }
+
+  //Registrar colaborador
+
+  const registrarColaborador = (colaborador) => {
+    console.log("Nuevo colaborador ", colaborador)
+    //Spread operator
+    actualizarColaboradores([...colaboradores, colaborador])
   }
 
   //Lista de equipos
@@ -63,17 +102,29 @@ function App() {
       {/* {mostrarFormulario === true ? <Formulario /> : <div></div>}  */}
       {/* {mostrarFormulario ? <Formulario /> : <></>}  */}
 
-      {mostrarFormulario && <Formulario equipos={equipos.map( (equipo) => equipo.titulo)} />}
+      {
+        mostrarFormulario && <Formulario 
+          equipos={equipos.map( (equipo) => equipo.titulo)} 
+          registrarColaborador={registrarColaborador}
+          />
+      }
       <MiOrg cambiarMostrar={cambiarMostrar} />
 
       {
-          equipos.map( (equipo) => <Equipo datos={equipo} key={equipo.titulo} />)
+          equipos.map( (equipo) => <Equipo 
+            datos={equipo} 
+            key={equipo.titulo}
+            colaboradores={colaboradores.filter(colaborador => colaborador.equipo === equipo.titulo)}
+            />
+          )
 
           //Es lo equivalente a si ponemos las llaves y return
           // equipos.map( (equipo) => {
           //   return <Equipo datos={equipo} key={equipo.titulo} />
           // } )
-      }  
+      } 
+
+      <Footer /> 
      
     </div>
   );
